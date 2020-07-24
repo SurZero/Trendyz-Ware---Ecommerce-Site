@@ -1,0 +1,243 @@
+{% load  static %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    //new
+      var user = '{{request.user}}'
+
+      function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Django Ecommerce</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Bootstrap core CSS -->
+  <link href={% static "css/bootstrap.min.css" %} rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href={% static "css/mdb.min.css" %} rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href={% static "css/style.min.css" %} rel="stylesheet">
+  <link href={% static "css/style.css" %} rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+{% block navbar %}
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+    <div>
+      <a class="navbar-brand waves-effect" href={% url 'items:home' %}>
+          <strong style="color: deepskyblue">TrendyzWear</strong>
+          <div class="blue-text" style="font-size: 9px; margin-top: -3px; margin-left: 69%;">For Men</div>
+      </a>
+
+    </div>
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link waves-effect" href="{% url 'items:home' %}">Home
+{#              <span class="sr-only">(current)</span>#}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'items:about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'items:contact' %}">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          {% if request.user.is_authenticated %}
+            <li  class="nav-item">
+              <a href="{% url 'items:order_summery' %}" class="nav-link waves-effect">
+                <span id="cart-count" class="badge red z-depth-1"> {{request.user|cart_item_count}} </span>
+                <i class="fas fa-shopping-cart" style="color: royalblue;"></i>
+                <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+              </a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Login </span>
+              </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+                  <span class="clearfix d-none d-sm-inline-block"> Sign up </span>
+                </a>
+            </li>
+          {% endif %}
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+{% endblock %}
+  <!-- Navbar -->
+    <div class="mt-5">
+        {% if messages %}
+            {% for message in messages %}
+                <span style="background-color: blue; color: white" >{{ message }}</span>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% block content %}
+
+{% endblock %}
+
+
+  <!--Footer-->
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn" id="footer">
+
+    <!--Call to action-->
+    <div class="pt-4">
+
+    </div>
+    <!--/.Call to action-->
+    <div style="display: flex; flex-direction: row; justify-content: space-evenly   " class="mb-4">
+        <div>
+         <div><h4>Contact</h4></div>
+         <div>
+             <div>Phone: 9818380761</div>
+             <div>Email: srjthapa53@gmail.com</div>
+             <div>Location: New Road</div>
+         </div>
+      </div>
+        <div class="pb-4" >
+          <div>
+              <h5 style="margin-right: 20px">Follow US </h5>
+          </div>
+          <a href="#" target="_blank" style="color: darkblue;">
+            <i class="fab fa-facebook mr-3 fa-2x"></i>
+          </a>
+
+          <a href="#" target="_blank" style="color: blue">
+            <i class="fab fa-twitter mr-3 fa-2x"></i>
+          </a>
+
+          <a href="#" target="_blank" style="color: orangered;">
+            <i class="fab fa-youtube mr-3 fa-2x"></i>
+          </a>
+
+            <a href="#" style="color: deeppink;">
+            <i class="fab fa-instagram mr-3 fa-2x"></i>
+          </a>
+
+          <a href="#" target="_blank" style="color: orangered;">
+            <i class="fab fa-google-plus-g mr-3 fa-2x"></i>
+          </a>
+        </div>
+        <!-- Social icons -->
+    </div>
+    <!--Copyright-->
+    <div class="footer-copyright py-3" style="color: white;">
+      © {% now "Y" %} Copyright:
+      <a href="#">TrendyzForMen.com </a>
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  <!--/.Footer-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src={% static "js/jquery-3.4.1.min.js" %}></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src={%static "js/popper.min.js"%}></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src={% static "js/bootstrap.min.js" %}></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src={% static "js/mdb.min.js" %}></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+
+       // Animations initialization
+    new WOW().init();
+
+  </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script src="{% static 'js/site.js' %}"></script>
+    
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+
+</body>
+
+</html>

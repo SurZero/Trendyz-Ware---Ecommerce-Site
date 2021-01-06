@@ -121,8 +121,8 @@ AUTH_PASSWORD_VALIDATORS = [
 #         # (``socialaccount`` app) containing the required client
 #         # credentials, or list them here:
 #         'APP': {
-#             'client_id': '586305468596381',
-#             'secret': '238b95dbefe9d103e329974d07911100',
+#             'client_id': '',
+#             'secret': '',
 #             'key': ''
 #         }
 #     }

@@ -1,79 +1,82 @@
-{% extends "home-page.html" %}
-{% load crispy_forms_tags %}
-
-{% block content %}
-<div class="searched_error ">
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-danger alert-dismissible fade show" style="margin-bottom: -13%" role="alert">
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-    {% endfor %}
-{% endif %}
-
+{% extends "home-page.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="searched_error">
+  {% if messages %} {% for message in messages %}
+  <div
+    class="alert alert-danger alert-dismissible fade show"
+    style="margin-bottom: -13%"
+    role="alert"
+  >
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %} {% endif %}
 </div>
-  <main style="margin-top: 8%;">
-    <div class="container wow fadeIn">
-      <h2 class="my-5 h2 text-center">Checkout form</h2>
-      <div class="row offset-3" style="margin-top: -25px">
-        <div class="col-md-8 mb-4">
-          <div class="card">
-            <form method="POST" class="card-body">
-              {% csrf_token %}
+<main style="margin-top: 8%">
+  <div class="container wow fadeIn">
+    <h2 class="my-5 h2 text-center">Checkout form</h2>
+    <div class="row offset-3" style="margin-top: -25px">
+      <div class="col-md-8 mb-4">
+        <div class="card">
+          <form method="POST" class="card-body">
+            {% csrf_token %} {#
+            <h3>Billing address</h3>
+            #}
 
-{#              <h3>Billing address</h3>#}
-
-              <div class='hideable_billing_form'>
-                <div class="md-form mb-5">
-                  <input type='text' placeholder='Enter Full Name' id='name' name='name' class='form-control' required />
-                  <label for="name" class="">Name <span class="text-danger">*</span></label>
-                </div>
-
-                <div class="md-form mb-5">
-                  <input type='text' placeholder='Enter Address in Detail' id='address' name='address' class='form-control' required />
-                  <label for="address" class="">Address <span class="text-danger">*</span></label>
-                </div>
-
-                <div class="md-form mb-5">
-                  <input type='number' placeholder='Enter Phone Number' id='phone_number' name='phone_number' class='form-control' required />
-                  <label for="phone_number" class="">Phone Number <span class="text-danger">*</span></label>
-                </div>
-              </div>
-            
-              <h3>Payment option</h3>
-
-              <div class="d-block my-3">
-                {% for value, name in form.fields.payment_option.choices %}
-                <div class="custom-control custom-radio">
-                  <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
-                  <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
-                </div>
-                {% endfor %}
+            <div class="hideable_billing_form">
+              <div class="md-form mb-5">
+                <input
+                  type="text"
+                  placeholder="Enter Full Name"
+                  id="name"
+                  name="name"
+                  class="form-control"
+                  required
+                />
+                <label for="name" class=""
+                  >Name <span class="text-danger">*</span></label
+                >
               </div>
 
-              <hr class="mb-4">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+              <div class="md-form mb-5">
+                <input
+                  type="text"
+                  placeholder="Enter Address in Detail"
+                  id="address"
+                  name="address"
+                  class="form-control"
+                  required
+                />
+                <label for="address" class=""
+                  >Address <span class="text-danger">*</span></label
+                >
+              </div>
 
-            </form>
+              <div class="md-form mb-5">
+                <input
+                  type="number"
+                  placeholder="Enter Phone Number"
+                  id="phone_number"
+                  name="phone_number"
+                  class="form-control"
+                  required
+                />
+                <label for="phone_number" class=""
+                  >Phone Number <span class="text-danger">*</span></label
+                >
+              </div>
+            </div>
 
-          </div>
-
+            <hr class="mb-4" />
+            <button class="btn btn-primary btn-lg btn-block" type="submit">
+              Continue to checkout
+            </button>
+          </form>
         </div>
-
-{#        <div class="col-md-4 mb-4">#}
-{#          {% include "order_snippet.html" %}#}
-{#        </div>#}
-
       </div>
-
     </div>
-  </main>
+  </div>
+</main>
 
-{% endblock content %}
-
-{% block extra_scripts %}
-
-{% endblock extra_scripts %}
+{% endblock content %} {% block extra_scripts %} {% endblock extra_scripts %}
